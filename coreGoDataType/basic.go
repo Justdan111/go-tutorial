@@ -16,5 +16,6 @@ func main() {
 	fmt.Printf("Is Student: %t (type: %T)\n", isStudents, isStudents)
 
 	// Arrays - fixed size
-	
+	var scores [5]int = [5]int{90, 85, 88, 92, 95}	
+	fmt.Printf("Scores array: %v\n", scores,)
 }
