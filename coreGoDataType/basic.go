@@ -26,4 +26,21 @@ func main() {
 	// Add to slice
 	fruits = append(fruits, "grape")
 	fmt.Printf("After adding grape: %v\n", fruits)
+
+	// Maps - key-value pairs
+	studentGrades := map[string]int{
+     "Dan": 95,
+	 "John": 67,
+	 "Peter": 80,
+	}
+
+	fmt.Printf("student grades: %v\n", studentGrades)
+
+	// Add to map
+	studentGrades["Mary"] = 90
+	fmt.Printf("After adding Mary: %v\n", studentGrades)
+
+	// Access map values
+	danGrade := studentGrades["Dan"]
+	fmt.Printf("Dan's grade: %d\n", danGrade)
 }
