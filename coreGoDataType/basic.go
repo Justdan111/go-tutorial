@@ -18,4 +18,12 @@ func main() {
 	// Arrays - fixed size
 	var scores [5]int = [5]int{90, 85, 88, 92, 95}	
 	fmt.Printf("Scores array: %v\n", scores,)
+
+	// Slices - dynamic size
+	fruits := []string{"Apple", "Banana", "Cherry"}
+	fmt.Printf("Fruits slice: %v\n", fruits)
+
+	// Add to slice
+	fruits = append(fruits, "grape")
+	fmt.Printf("After adding grape: %v\n", fruits)
 }
