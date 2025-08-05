@@ -54,6 +54,8 @@ func main() {
 		fmt.Printf("Error: %s\n", err)
 	}
 
-	// 
+	// Named returns
+	grade, passed := calculateGrade(85)
+	fmt.Printf("Score: 85, Grade: %s, Passed: %t\n", grade, passed)
 
 }
