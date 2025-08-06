@@ -14,6 +14,12 @@ func (p Person) Greet() string {
 	return fmt.Sprintf("Hello, my name is %s and I am %d years old.", p.Name, p.Age)
 }
 
+// method with pointer reciever - can modify the struct
+func (p *Person) HaveBirthday() {
+	p.Age++
+	fmt.Printf("Happy birthday %s! You are now %d years old.\n", p.Name, p.Age)
+}
+
 func main() {
 
 }
