@@ -78,5 +78,14 @@ func main() {
 		fmt.Printf(" %s: %d\n", name, score)
 	}
 
+	// while-like loop
+	fmt.Println("\ncountdown:")
+	count :=5
+	for count > 0 {
+		fmt.Printf(" %d\n", count)
+		count--
+	}
+	fmt.Println("Blast off!")
+
 
 }
