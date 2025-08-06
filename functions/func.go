@@ -71,5 +71,12 @@ func main() {
 		fmt.Printf(" %d: %s\n", index, fruit)
 	}
 
+	// loop over a map
+	scores := map[string]int{"Alice": 90, "Bob": 85, "Charlie": 92}
+	fmt.Println("\nScores:")	
+	for name, score := range scores {
+		fmt.Printf(" %s: %d\n", name, score)
+	}
+
 
 }
