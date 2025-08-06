@@ -20,6 +20,11 @@ func (p *Person) HaveBirthday() {
 	fmt.Printf("Happy birthday %s! You are now %d years old.\n", p.Name, p.Age)
 }
 
+// method to validate email
+func (p Person) isEmailValid() bool {
+	return len (p.Email) > 0 && contains(p.Email, "@")
+}
+
 func main() {
 
 }
