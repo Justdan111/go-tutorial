@@ -64,5 +64,12 @@ func main() {
 	}
 	fmt.Println()
 
+	// loof over a slice
+	fruits := []string{"apple", "banana", "cherry"}
+	fmt.Println("\nFruits:")
+	for index, fruit := range fruits {
+		fmt.Printf(" %d: %s\n", index, fruit)
+	}
+
 
 }
