@@ -58,4 +58,11 @@ func main() {
 	grade, passed := calculateGrade(85)
 	fmt.Printf("Score: 85, Grade: %s, Passed: %t\n", grade, passed)
 
+	// loop in Go
+	for i := 1; i <= 5; i++ {
+		fmt.Printf("Loop iteration: %d\n", i)
+	}
+	fmt.Println()
+
+
 }
