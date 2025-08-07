@@ -10,14 +10,14 @@ type Person struct {
 }
 
 // method with a receiver
-func (p Person) Greet() string {
-	return fmt.Sprintf("Hello, my name is %s and I am %d years old.", p.Name, p.Age)
+func (p Person) Introduce() string {
+	return fmt.Sprintf("Hi, I'm %s I am %d years old.", p.Name, p.Age)
 }
 
 // method with pointer reciever - can modify the struct
 func (p *Person) HaveBirthday() {
 	p.Age++
-	fmt.Printf("Happy birthday %s! You are now %d years old.\n", p.Name, p.Age)
+	fmt.Printf("%s is now %d years old!\n", p.Name, p.Age)
 }
 
 // method to validate email
@@ -57,5 +57,23 @@ func main() {
 	}
 
 	// Call Method
+
+	fmt.Println(person1.Introduce())
+		fmt.Printf("Email valids: %t\n", person1.isEmailValid())
+
+		// Modify using pointer method
+		person1.HaveBirthday()
+
+		// Another way to create struct
+		person2 :=Person{}
+		person2.Name = "John"
+		person2.Age = 30
+		person2.Email = "john@gmail.com"
+
+		fmt.Println(person2.Introduce())
+
+		// Create an Employee (embedded struct)
+		emp := Employee{
+
 
 }
