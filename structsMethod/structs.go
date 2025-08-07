@@ -22,8 +22,21 @@ func (p *Person) HaveBirthday() {
 
 // method to validate email
 func (p Person) isEmailValid() bool {
-	return len (p.Email) > 0 && contains(p.Email, "@")
+	return len(p.Email) > 0 && contains(p.Email, "@")
 }
+
+// Helper function 
+func contains (s, substr string) bool {
+	for i := 0; i <= len(s) - len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return  true
+		}
+	}
+	return  false
+}
+
+// Another struct for demonstrating composition
+
 
 func main() {
 
