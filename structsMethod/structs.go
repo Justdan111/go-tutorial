@@ -74,6 +74,27 @@ func main() {
 
 		// Create an Employee (embedded struct)
 		emp := Employee{
+			Person: Person{
+				Name:  "Alice",
+				Age:   28,
+				Email: "Al@gmail.com",
+			},
+			Company: "TechCorp",
+			Salary: 75000.00,
+		}
 
+	// Can access Person methods directly
+	fmt.Println(emp.Introduce())
+	fmt.Println(emp.GetDetails())
+
+	// Can access Person fields directly too
+	fmt.Printf("Employee Email: %s\n", emp.Email)
+
+	// Slice of structs
+    team := []Person{person1, person2}
+	fmt.Println("\n Intoduction:")
+	for _, member := range team {
+		fmt.Println(member.Introduce())
+	}
 
 }
