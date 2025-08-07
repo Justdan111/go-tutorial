@@ -36,8 +36,26 @@ func contains (s, substr string) bool {
 }
 
 // Another struct for demonstrating composition
+type Employee struct {
+	Person
+	Company string
+	Salary float64
+}
+
+// Method for Employee 
+func (e Employee) GetDetails() string {
+	return  fmt.Sprintf("%s works at %s with salary $%.2f", e.Name, e.Company, e.Salary)
+}
 
 
 func main() {
+	//Create a Person
+	person1 := Person{
+		Name: "Dan",
+		Age: 25,
+		Email: "dan@email.com",
+	}
+
+	// Call Method
 
 }
