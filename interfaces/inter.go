@@ -1,6 +1,6 @@
 package main
 
-import fmt
+import "fmt"
 
 // interface defines behavior, not data
 type Speaker interface {
@@ -73,9 +73,64 @@ func describeAnimal(a Animal) {
 }
 
 // Empty interface - can hold any type
-func describe(i interface)
+func describe(i interface{}) {
+	fmt.Printf("Value: %v, type: %T\n", i, i)
+}
 
 
 func main () {
+	// Create instances
+	dog := Dog{Name: "Buddy"}
+	cat := Cat{Name: "Whiskers"}
+	robot := Robot{Model: "R2D2"}
 
+	// All implement Speaker, so can be passed to makeItSpeak
+	 fmt.Println("=== Making them speak ===")
+	    makeItSpeak(dog)
+		makeItSpeak(cat)
+		makeItSpeak(robot)
+
+	// Animals (cat and dog) implement both speaker and mover
+	fmt.Println("\n=== Describing animals ===")
+	describeAnimal(dog)
+	fmt.Println()
+	describeAnimal(cat)
+	fmt.Println()
+	// Robot implements both speaker and mover
+	describeAnimal(robot)
+
+	// Empty interface example
+	 fmt.Println("\n=== Empty interface example ===")
+	 describe(42)
+	 describe("Hello, world!")
+	 describe(dog)
+	 describe([]int{1, 2, 3})
+
+	// slice of interface
+	fmt.Println("\n === Slice of Speakers ===")
+	speakers := []Speaker{dog, cat, robot}
+	 for i, speaker := range speakers {
+		fmt.Printf("%d, %s\n", i+1, speaker.Speak())
+	 }
+
+	// Type assertion - getting concrete type interface 
+	fmt.Println("\n === Type assertions ===") 
+	var s Speaker = dog
+
+	// check if it's a Dog
+	if d, ok := s.(Dog); ok {
+		fmt.Printf("It's a dog named %s!\n", d.Name)
+	}
+
+	// Type switch
+	switch v := s.(type) {
+	case Dog:
+		fmt.Printf("Definitely a dog: %s\n", v.Name)
+	case Cat:
+		fmt.Printf("It's a Cat: %s\n", v.Name)
+	case Robot:
+		fmt.Printf("It's a robot: %s\n", v.Model)
+	default:
+		fmt.Printf("Unknown type: %T\n", v)			
+	}	
 }
