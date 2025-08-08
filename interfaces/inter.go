@@ -73,6 +73,7 @@ func describeAnimal(a Animal) {
 }
 
 // Empty interface - can hold any type
+func describe(i interface)
 
 
 func main () {
