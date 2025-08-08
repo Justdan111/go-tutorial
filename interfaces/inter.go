@@ -61,6 +61,19 @@ func (r Robot) Move() string {
 	return  fmt.Sprintf("Robot %s moves mechanically", r.Model)
 }
 
+// Function that accepts any speaker
+func makeItSpeak(s Speaker) {
+	fmt.Println(s.Speak())
+}
+
+// function that accepts any Animal (Speaker + Mover)
+func describeAnimal(a Animal) {
+	fmt.Println(a.Speak())
+	fmt.Println(a.Move())
+}
+
+// Empty interface - can hold any type
+
 
 func main () {
 
