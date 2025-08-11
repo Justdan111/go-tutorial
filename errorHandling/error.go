@@ -98,5 +98,21 @@ func processUserData(name, email, ageStr string) (*User, error) {
 }
 
 func main() {
+    fmt.Println("=== Basic Error Handling ===")
 
+	//bassic error handling
+	result, err := divide(10, 2)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	} else {
+		fmt.Printf("10 / 2 = %.2f\n", result)
+	}
+
+	// Error case
+	_, err = divide(10, 0)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+  
+	fmt.Println("\n === Custom Error Types ===")
 }
