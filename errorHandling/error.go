@@ -145,4 +145,19 @@ func main() {
 
 	fmt.Println("\n=== Error Checking Patterns ===")
 
+	// Multiple error checks - common Go pattern
+	ages := []string{"25", "-5", "invalid_age", "200"}
+
+	for _, ageStr := range ages {
+        age, err := parseAndValidateAge(ageStr)
+        switch {
+        case err != nil:
+            fmt.Printf("❌ '%s': %v\n", ageStr, err)
+        default:
+            fmt.Printf("✅ '%s': valid age %d\n", ageStr, age)
+        }
+    }
+
+	
+
 }
