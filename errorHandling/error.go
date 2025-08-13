@@ -115,4 +115,15 @@ func main() {
 	}
   
 	fmt.Println("\n === Custom Error Types ===")
+
+	// Valid User
+	validUser := User{Name: " ", Email: " ", Age: 25}
+	if err := validateUser(validUser); err != nil {
+		fmt.Printf("Validation error: %v\n", err)
+        
+        // Type assertion to get specific error details
+        if validationErr, ok := err.(ValidationError); ok {
+            fmt.Printf("Field with error: %s\n", validationErr.Field)
+        }
+
 }
