@@ -158,6 +158,20 @@ func main() {
         }
     }
 
-	
+	fmt.Println("\n=== Panic and Recover (Use Sparingly!) ===")
 
+	// Demonstrate panic and recover
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                fmt.Printf("Recovered from panic: %v\n", r)
+            }
+        }()
+        
+        fmt.Println("About to panic...")
+        panic("Something went terribly wrong!")
+        fmt.Println("This will never print")
+    }()
+    
+    fmt.Println("Program continues after recovery")
 }
