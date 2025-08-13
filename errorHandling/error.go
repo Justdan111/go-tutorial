@@ -127,4 +127,22 @@ func main() {
         }
     }
 
+	fmt.Println("\n === Error Wrapping ===")
+
+	// Successful user processing
+	user, err := processUserData("Dan", "slime@gmail.com", "25")
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	} else {
+		fmt.Printf("Processed user: %+v\n", user)
+	}
+
+	// Error in Parsing
+	_, err = processUserData("Dan", "slime@gmail.com", "invalid_age")
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("\n=== Error Checking Patterns ===")
+
 }
