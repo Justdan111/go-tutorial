@@ -30,6 +30,12 @@ func modifyPersonValue(p Person) {
     fmt.Printf("Inside function (value): %+v\n", p)
 }
 
+// Function that takes a pointer (original)
+func modifyPersonPointer(p *Person) {
+    p.Name = "Modified Name"
+    p.Age = 999
+    fmt.Printf("Inside function (pointer): %+v\n", *p)
+}
 
 func main() {
 
