@@ -23,6 +23,14 @@ func (p *Person) HaveBirthday() {
     fmt.Printf("%s is now %d years old!\n", p.Name, p.Age)
 }
 
+// Function that takes a value (copy)
+func modifyPersonValue(p Person) {
+    p.Name = "Modified Name"
+    p.Age = 999
+    fmt.Printf("Inside function (value): %+v\n", p)
+}
+
+
 func main() {
 
 }
