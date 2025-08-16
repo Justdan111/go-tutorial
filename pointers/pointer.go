@@ -17,6 +17,12 @@ func (p *Person) IntroducePointer() {
     fmt.Printf("Hi, I'm %s (pointer receiver)\n", p.Name)
 }
 
+// Method that modifies - needs pointer receiver
+func (p *Person) HaveBirthday() {
+    p.Age++
+    fmt.Printf("%s is now %d years old!\n", p.Name, p.Age)
+}
+
 func main() {
 
 }
