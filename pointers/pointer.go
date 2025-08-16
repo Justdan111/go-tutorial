@@ -39,4 +39,15 @@ func modifyPersonPointer(p *Person) {
 
 func main() {
 
+	fmt.Println("=== Understanding Pointers ===")
+    
+    // Basic variables and pointers
+    x := 42
+    fmt.Printf("x = %d\n", x)
+    
+    // Get pointer to x
+    ptr := &x
+    fmt.Printf("ptr = %p (points to x)\n", ptr)
+    fmt.Printf("*ptr = %d (value at pointer)\n", *ptr)
+
 }
