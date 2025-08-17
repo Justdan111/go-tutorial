@@ -39,6 +39,17 @@ func NewTodoApp(filename string) *TodoApp {
 }
 
 // AddTodo adds a new todo item
+func (app *TodoApp) AddTodo(text string) {
+	todo := Todo{
+		ID:        app.NextID,
+		Text:      strings.TrimSpace(text),
+		Completed: false,
+		CreatedAt: time.Now(),
+	}
+	app.Todos = append(app.Todos, todo)
+    app.NextID++
+    fmt.Printf("✅ Added todo #%d: %s\n", todo.ID, todo.Text)
+}
 
 func main() {
 
