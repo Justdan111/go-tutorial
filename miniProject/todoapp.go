@@ -27,6 +27,19 @@ type TodoApp struct {
 	filename string
 }
 
+// NewTodoApp creates a new TodoApp instance
+func NewTodoApp(filename string) *TodoApp {
+	app := &TodoApp{
+		Todos:   []Todo{},
+		NextID:  1,
+		filename: filename,
+	}
+	app.LoadFromFile()
+	return app
+}
+
+// AddTodo adds a new todo item
+
 func main() {
 
 }
