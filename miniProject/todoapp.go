@@ -50,3 +50,11 @@ func (app *TodoApp) AddTodo(text string) {
 	fmt.Printf("✅ Added todo #%d: %s\n", todo.ID, todo.Text)
 }
 
+// ListTodos displays all todos
+func (app *TodoApp) ListTodos() {
+	if len(app.Todos) == 0 {
+		fmt.Println("No todos found. add one with 'add <description>'")
+		return
+	}
+
+	fmt.Println("\n")
