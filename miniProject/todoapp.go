@@ -57,4 +57,17 @@ func (app *TodoApp) ListTodos() {
 		return
 	}
 
-	fmt.Println("\n")
+	fmt.Println("\n📋 Your Todos:")
+	fmt.Println("=" + strings.Repeat("=", 50))
+
+	for _, todo := range app.Todos {
+		status := "⬜"
+		if todo.Completed {
+			status = "✅"
+		}
+
+		fmt.Printf("%s #%d: %s\n", status, todo.ID, todo.Text)
+		fmt.Printf("   📅 Created: %s\n", todo.CreatedAt.Format("2006-01-02 15:04:05"))
+	}
+	fmt.Println("=" + strings.Repeat("=", 50))
+}
