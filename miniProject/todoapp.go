@@ -89,3 +89,15 @@ func (app *TodoApp) CompletedTodo(id int) {
   fmt.Printf("Todo with ID %d not found.\n", id)
 }
 
+// DeleteTodo removes a todo by ID
+func (app *TodoApp) DeleteTodo(id int) {
+	for i, todo := range app.Todos {
+		if todo.ID == id {
+				app.Todos = append(app.Todos[:i], app.Todos[i+1:]...)
+				app.SaveToFile()
+				fmt.Printf("🗑️ Deleted todo #%d: %s\n", id, todo.Text)
+				return
+			}
+		}
+	fmt.Printf("Todo with ID %d not found.\n", id)
+	}
