@@ -71,3 +71,21 @@ func (app *TodoApp) ListTodos() {
 	}
 	fmt.Println("=" + strings.Repeat("=", 50))
 }
+
+// completeTodo marks a todo as completed
+func (app *TodoApp) CompletedTodo(id int) {
+	for i, todo := range app.Todos {
+		if todo.ID == id {
+			if app.Todos[i].Completed {
+				fmt.Printf("Todo #%d is already completed.\n", id)
+				return
+		}
+		app.Todos[i].Completed = true
+		app.SaveToFile()
+		fmt.Printf("✅ Todo #%d marked as completed!\n", id)
+		return
+	}
+}
+  fmt.Printf("Todo with ID %d not found.\n", id)
+}
+
