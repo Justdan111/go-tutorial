@@ -126,3 +126,69 @@ func (app *TodoApp) DeleteTodo(id int) {
 			fmt.Println("Error loading todos:", err)
 		}
 	}		
+
+	// Command loop for CLI
+
+	func main() {
+		app := NewTodoApp("todos.json")
+		reader := bufio.NewReader(os.Stdin)
+
+		fmt.Println("Welcome to the Todo App!")
+		fmt.Println("commands: add <task>, list, complete <id>, delete <id>, quit")
+
+		for {
+			fmt.Print("\n enter command: ")
+			input, _ := reader.ReadString('\n')
+			input = strings.TrimSpace(input)
+
+			if input == "" {
+				continue
+			}
+
+			parts := strings.SplitN(input, " ", 2)
+			command := parts[0]
+
+			switch command {
+			case "add":
+				if len(parts) < 2 {
+					fmt.Println("⚠️ Please provide a todo description.")
+					continue
+				}
+				app.AddTodo(parts[1])
+
+				case "list":
+				app.ListTodos()
+
+			case "complete":
+				if len(parts) < 2 {
+					fmt.Println("⚠️ Please provide a todo ID to complete.")
+					continue
+				}
+				id, err := strconv.Atoi(parts[1])
+				if err != nil {
+					fmt.Println("⚠️ Invalid ID format. Please provide a number.")
+					continue
+				}
+				app.CompletedTodo(id)
+
+				case "delete":
+					if len(parts) < 2 {
+						fmt.Println("⚠️ Please provide a todo ID to delete.")
+						continue
+					}
+					id, err := strconv.Atoi(parts[1])
+					if err != nil {
+						fmt.Println("⚠️ Invalid ID format. Please provide a number.")
+						continue
+					}
+					app.DeleteTodo(id)
+
+					case "quit", "exit":
+						fmt.Println("Goodbye! 👋")
+						return
+
+				default:
+					fmt.Println("❓ Unknown command. Try: add, list, complete, delete, quit")	
+		}
+	}
+}
