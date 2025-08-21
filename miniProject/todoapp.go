@@ -101,3 +101,18 @@ func (app *TodoApp) DeleteTodo(id int) {
 		}
 	fmt.Printf("Todo with ID %d not found.\n", id)
 	}
+
+	// SaveToFile saves the current todos to a file
+	func (app *TodoApp) SaveToFile() {
+		data, err := json.MarshalIndent(app, "", "  ")
+		if err != nil {
+			fmt.Println("Error saving todos:", err)
+			return
+		}
+		err = ioutil.WriteFile(app.filename, data, 0644)
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+		}
+	}
+
+	
