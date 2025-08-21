@@ -102,7 +102,7 @@ func (app *TodoApp) DeleteTodo(id int) {
 	fmt.Printf("Todo with ID %d not found.\n", id)
 	}
 
-	// SaveToFile saves the current todos to a file
+	// SaveToFile persists todos to JSON
 	func (app *TodoApp) SaveToFile() {
 		data, err := json.MarshalIndent(app, "", "  ")
 		if err != nil {
@@ -115,4 +115,14 @@ func (app *TodoApp) DeleteTodo(id int) {
 		}
 	}
 
-	
+	// LoadFromFile loads todos from JSON file
+	func (app *TodoApp) LoadFromFIle() {
+		data, err := ioutil.ReadFile(app.filename)
+		if err != nil {
+			return // File may not exist yet, ignore error
+		}
+		err = json.Unmarshal(data, app)
+		if err !=nil {
+			fmt.Println("Error loading todos:", err)
+		}
+	}		
