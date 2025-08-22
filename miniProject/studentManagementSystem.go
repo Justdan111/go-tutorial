@@ -56,4 +56,30 @@ func main() {
 	ChangeNamePointer(&student1, "Mike")
 	student1.PrintInfo() // Name should now be "Mike"
 	
+	// 5. nil pointer check
+	var student2 *Student
+	if student2 == nil {
+		fmt.Println("\nstudent2 is nil, creating new Student")
+		student2 = new(Student)
+		student2.Name = "Peter"
+		student2.Age = 22
+		student2.Grade = "C"
+	}
+	student2.PrintInfo()
+	
+	// 6. Slices with pointers (reference behavior)
+	students := []Student{
+		{"Clark", 21, "B"},
+		{"Diana", 23, "A"},
+	}
+	fmt.Println("\nOriginal Student slice", students)
+
+	// Modify slice element (affects original, since slices are references)
+	students[0].Grade = "A+"
+	fmt.Println("Modified Student slice", students)
+
+	// 7. Pointer to Pointer (rarely used)
+	prtToPtr := &studentPtr
+	(**prtToPtr).Grade = "B-"
+	fmt.Println("\nAfter modifying via pointer to pointer:", student1)
 }
