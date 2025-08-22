@@ -40,7 +40,7 @@ func main() {
 	fmt.Println("Modified x through pointer:", x)
 
 	// 2 Structs and Pointers
-	student1 := Student("John", 20, "B")
+	student1 := Student{"John", 20, "B"}
 	studentPtr := &student1
 	fmt.Println("\nAccess via struct pointer:", studentPtr.Name)
 
