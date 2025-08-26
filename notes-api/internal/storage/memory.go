@@ -3,10 +3,9 @@ package storage
 import (
     "context"
     "errors"
+    "notes-api/internal/models"
     "sync"
     "time"
-    
-    "your-project/internal/models"
 )
 
 type MemoryStorage struct {

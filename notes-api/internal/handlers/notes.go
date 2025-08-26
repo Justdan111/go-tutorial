@@ -3,11 +3,11 @@ package handlers
 import (
     "encoding/json"
     "net/http"
+    "notes-api/internal/models"
+    "notes-api/internal/storage"
     "strings"
     
     "github.com/google/uuid"
-    "your-project/internal/models"
-    "your-project/internal/storage"
 )
 
 type NotesHandler struct {
@@ -68,7 +68,7 @@ func (h *NotesHandler) handlePost(w http.ResponseWriter, r *http.Request) {
         return
     }
     
-    if err := h.validateCreateRequest(req); err != nil {
+    if err := models.ValidateCreateRequest(req); err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
@@ -89,15 +89,47 @@ func (h *NotesHandler) handlePost(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(note)
 }
 
-func (h *NotesHandler) validateCreateRequest(req models.CreateNoteRequest) error {
-    if strings.TrimSpace(req.Title) == "" {
-        return errors.New("title is required")
+func (h *NotesHandler) handlePut(w http.ResponseWriter, r *http.Request) {
+    path := strings.TrimPrefix(r.URL.Path, "/api/notes/")
+    if path == "" {
+        http.Error(w, "Note ID required", http.StatusBadRequest)
+        return
     }
-    if len(req.Title) > 100 {
-        return errors.New("title must be less than 100 characters")
+    
+    var req models.UpdateNoteRequest
+    if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+        http.Error(w, "Invalid JSON", http.StatusBadRequest)
+        return
     }
-    if strings.TrimSpace(req.Content) == "" {
-        return errors.New("content is required")
+    
+    updateNote := &models.Note{
+        Title:   req.Title,
+        Content: req.Content,
     }
-    return nil
+    
+    if err := h.storage.UpdateNote(r.Context(), path, updateNote); err != nil {
+        http.Error(w, "Note not found", http.StatusNotFound)
+        return
+    }
+    
+    // Get updated note to return
+    note, _ := h.storage.GetNote(r.Context(), path)
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(note)
+}
+
+func (h *NotesHandler) handleDelete(w http.ResponseWriter, r *http.Request) {
+    path := strings.TrimPrefix(r.URL.Path, "/api/notes/")
+    if path == "" {
+        http.Error(w, "Note ID required", http.StatusBadRequest)
+        return
+    }
+    
+    if err := h.storage.DeleteNote(r.Context(), path); err != nil {
+        http.Error(w, "Note not found", http.StatusNotFound)
+        return
+    }
+    
+    w.WriteHeader(http.StatusNoContent)
 }

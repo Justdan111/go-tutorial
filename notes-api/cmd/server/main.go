@@ -3,11 +3,10 @@ package main
 import (
     "log"
     "net/http"
+    "notes-api/internal/handlers"
+    "notes-api/internal/storage"
+    "notes-api/pkg/middleware"
     "os"
-    
-    "your-project/internal/handlers"
-    "your-project/internal/storage"
-    "your-project/pkg/middleware"
 )
 
 func main() {
@@ -36,6 +35,7 @@ func main() {
     
     // Start server
     log.Printf("Server starting on port %s", port)
+    log.Printf("Try: curl http://localhost:%s/health", port)
     log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 
