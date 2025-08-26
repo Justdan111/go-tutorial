@@ -1,16 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
 
-func main()  {
-	fmt.Println("Hello, World!")
+func main() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "hello, world! You requested: %s", r.URL.Path)
+	})
 
-	var name string = "John Doe"
-	age := 30
-
-	fmt.Printf("Hello, %s! You are %d years old.\n", name, age)
-
-	var x, y int = 5, 10
-	sum := x + y
-	fmt.Printf("The sum of %d and %d is %d.\n", x, y, sum)
+	fmt.Println("Starting server on :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
