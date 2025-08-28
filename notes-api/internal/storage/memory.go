@@ -69,3 +69,16 @@ func (s *MemoryStrorage) UpdateNote(ctx context.Context, id string, updated *mod
     note.UpdatedAt = time.Now()
     return nil 
 }
+
+// Method to delete a note by ID
+func (s *MemoryStrorage) DeleteNote(ctx context.Context, id string) error {
+    s.mu.Lock()
+    defer s.mu.Unlock()
+
+    if _, exists := s.notes[id]; !exists{
+        return errors.New("note not found")
+    }
+
+    delete(s.notes, id)
+    return nil
+}
