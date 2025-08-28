@@ -24,7 +24,7 @@ type UpdateNoteRequest struct {
     Content string `json:"content"`
 }
 
-func ValidateCreatedRequest(req CreateNoteRequest) error {
+func ValidateCreateRequest(req CreateNoteRequest) error {
     if strings.TrimSpace(req.Title) == "" {
         return errors.New("Title is required")
     }

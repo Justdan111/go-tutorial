@@ -8,19 +8,19 @@ import (
     "sync"
 )
 
-type MemoryStrorage struct {
+type MemoryStorage struct {
      notes map[string]*models.Note
      mu   sync.RWMutex
 }
 
-func NewMemoryStorage() *MemoryStrorage {
-    return &MemoryStrorage{
+func NewMemoryStorage() *MemoryStorage {
+    return &MemoryStorage{
         notes: make(map[string]*models.Note),
     }
 }
 
 // Method to create a new note
-func (s *MemoryStrorage) CreateNote(ctx context.Context, note *models.Note) error {
+func (s *MemoryStorage) CreateNote(ctx context.Context, note *models.Note) error {
     s.mu.Lock()
     defer s.mu.Unlock()
 
@@ -31,7 +31,7 @@ func (s *MemoryStrorage) CreateNote(ctx context.Context, note *models.Note) erro
 }
 
 // Method to get a single note by ID
-func (s *MemoryStrorage) GetNote(ctx context.Context, id string) (*models.Note, error) {
+func (s *MemoryStorage) GetNote(ctx context.Context, id string) (*models.Note, error) {
     s.mu.RLock()
     defer s.mu.RUnlock()
 
@@ -43,7 +43,7 @@ func (s *MemoryStrorage) GetNote(ctx context.Context, id string) (*models.Note, 
 }
 
 //Method to retrieve all notes
-func (s *MemoryStrorage) GetAllNotes(ctx context.Context) ([]*models.Note, error) {
+func (s *MemoryStorage) GetAllNotes(ctx context.Context) ([]*models.Note, error) {
     s.mu.RLock()
     defer s.mu.RUnlock()
 
@@ -55,7 +55,7 @@ func (s *MemoryStrorage) GetAllNotes(ctx context.Context) ([]*models.Note, error
 }
 
 //Method to update an existing note
-func (s *MemoryStrorage) UpdateNote(ctx context.Context, id string, updated *models.Note) error {
+func (s *MemoryStorage) UpdateNote(ctx context.Context, id string, updated *models.Note) error {
     s.mu.Lock()
     defer s.mu.Unlock()
 
@@ -71,7 +71,7 @@ func (s *MemoryStrorage) UpdateNote(ctx context.Context, id string, updated *mod
 }
 
 // Method to delete a note by ID
-func (s *MemoryStrorage) DeleteNote(ctx context.Context, id string) error {
+func (s *MemoryStorage) DeleteNote(ctx context.Context, id string) error {
     s.mu.Lock()
     defer s.mu.Unlock()
 
