@@ -2,8 +2,8 @@ package models
 
 import (
     "errors"
-    "strings"
     "time"
+    "strings"
 )
 
 type Note struct {
@@ -24,12 +24,12 @@ type UpdateNoteRequest struct {
     Content string `json:"content"`
 }
 
-func ValidateCreateRequest(req CreateNoteRequest) error {
+func ValidateCreatedRequest(req CreateNoteRequest) error {
     if strings.TrimSpace(req.Title) == "" {
-        return errors.New("title is required")
+        return errors.New("Title is required")
     }
     if len(req.Title) > 100 {
-        return errors.New("title must be less than 100 characters")
+        return errors.New("title must be less than 100 charaters")
     }
     if strings.TrimSpace(req.Content) == "" {
         return errors.New("content is required")
