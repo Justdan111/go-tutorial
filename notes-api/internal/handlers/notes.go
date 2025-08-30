@@ -69,7 +69,7 @@ func (h *NotesHandler) handlePost(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)
         return
     }
-    if err := models.ValidateCreateRequest(req); err != nil {
+    if err := models.ValidateCreateNoteRequest(req); err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
