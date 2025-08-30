@@ -28,7 +28,7 @@ type UpdateNoteRequest struct {
 
 func ValidateCreateNoteRequest(req CreateNoteRequest) error {
     if strings.TrimSpace(req.Title) == "" {
-        return errors.New("Title is required")
+        return errors.New("title is required")
     }
     if len(req.Title) > 100 {
         return errors.New("title must be less than 100 charaters")
@@ -36,12 +36,12 @@ func ValidateCreateNoteRequest(req CreateNoteRequest) error {
     if strings.TrimSpace(req.Content) == "" {
         return errors.New("content is required")
     }
+    if len(req.Content) > 5000 {
+        return errors.New("content must be less than 5000 characters")
+    }
     return nil
 }
 
 func ValidateUpdateNoteRequest(req UpdateNoteRequest) error {
-    return ValidateCreateNoteRequest(CreateNoteRequest{
-        Title:   req.Title,
-        Content: req.Content,
-    })
+    return ValidateCreateNoteRequest(CreateNoteRequest(req))
 }
