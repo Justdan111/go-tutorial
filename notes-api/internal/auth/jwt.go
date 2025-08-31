@@ -2,7 +2,6 @@ package auth
 
 import (
 	"errors"
-	"go/token"
 	"notes-api/internal/models"
 	"time"
 
@@ -67,6 +66,6 @@ func (j *JWTService) ValidateToken(tokenString string) (*JWTClaims, error) {
 	if claims.ExpiresAt.Time.Before(time.Now()) {
 		return nil, errors.New("token has expired")
 	}
-	
+
 	return claims, nil
 }
