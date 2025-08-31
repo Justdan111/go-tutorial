@@ -39,8 +39,9 @@ func (h *NotesHandler) handleGet(w http.ResponseWriter, r *http.Request) {
     path := strings.TrimPrefix(r.URL.Path, "/api/notes")
 
     if path == "" || path == "/" {
-        // Get all notes
-        notes, err := h.storage.GetAllNotes(r.Context())
+        // Get notes by user id
+        userID := r.Context().Value("userID").(string)
+        notes, err := h.storage.GetNotesByUserID(r.Context(), userID)
         if err != nil {
             http.Error(w, "Failed to get notes", http.StatusInternalServerError)
             return
