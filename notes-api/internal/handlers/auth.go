@@ -17,3 +17,11 @@ type AuthHandler struct {
 	passwordService *auth.PasswordService
 
 }
+
+func NewAuthHandler(storage *storage.MemoryStorage, jwtService *auth.JWTService, passwordService *auth.PasswordService) *AuthHandler {
+	return &AuthHandler{
+		storage:  storage,
+		JWTService: jwtService,
+		passwordService: passwordService,
+	}
+}
