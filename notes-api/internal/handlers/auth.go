@@ -60,6 +60,20 @@ if err := h.storage.CreateUser(user); err != nil {
 		http.Error(w, "Failed to create user", http.StatusInternalServerError)
 	}
 	return
+}
 
 	// Generate JWT token
+	token, err := h.JWTService.GenerateToken(*user)
+	if err != nil {
+		http.Error(w, "Failed to generate token", http.StatusInternalServerError)
+		return
+	}
+
+	response := models.LoginResponse{
+		Token: token,
+		User: *user,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(response)
 }
