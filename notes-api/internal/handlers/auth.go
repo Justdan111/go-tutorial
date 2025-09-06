@@ -37,4 +37,29 @@ func (h *AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+
+// Hash the password before storing it
+hasedPassword, err := h.passwordService.HashPassword(req.Password)
+if err != nil {
+	http.Error(w, "Failed to process password", http.StatusInternalServerError)
+	return
+}
+
+// Create a new user
+user := models.User{
+	ID:       uuid.New().String(),
+	Email:    req.Email,
+	PasswordHash: hasedPassword,
+}
+
+if err := h.storage.CreateUser(user); err != nil {
+	if err.Error() == "email already exists" {
+		http.Error(w, "Email already in use", http.StatusConflict)
+	} else {
+		http.Error(w, "Failed to create user", http.StatusInternalServerError)
+	}
+	return
+
+	// Generate JWT token
 }
