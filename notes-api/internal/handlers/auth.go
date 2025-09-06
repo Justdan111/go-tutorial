@@ -12,5 +12,8 @@ import (
 )
 
 type AuthHandler struct {
-	storage
+	storage  *storage.MemoryStorage
+	JWTService  *auth.JWTService
+	passwordService *auth.PasswordService
+
 }
