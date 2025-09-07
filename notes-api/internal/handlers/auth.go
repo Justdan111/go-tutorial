@@ -205,3 +205,35 @@ func (h *NotesHandler) handlePut(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(note)
 }
 
+func (h *NotesHandler) handleDelete(w http.ResponseWriter, r *http.Request) {
+    userID := middleware.GetUserIDFromContext(r.Context())
+    if userID == "" {
+        http.Error(w, "User not authenticated", http.StatusUnauthorized)
+        return
+    }
+
+    path := strings.TrimPrefix(r.URL.Path, "/api/notes/")
+    if path == "" {
+        http.Error(w, "Note ID required", http.StatusBadRequest)
+        return
+    }
+    
+    // Check if note exists and belongs to user
+    existingNote, err := h.storage.GetNote(r.Context(), path)
+    if err != nil {
+        http.Error(w, "Note not found", http.StatusNotFound)
+        return
+    }
+    
+    if existingNote.UserID != userID {
+        http.Error(w, "Access denied", http.StatusForbidden)
+        return
+    }
+    
+    if err := h.storage.DeleteNote(r.Context(), path); err != nil {
+        http.Error(w, "Failed to delete note", http.StatusInternalServerError)
+        return
+    }
+    
+    w.WriteHeader(http.StatusNoContent)
+}
