@@ -1,13 +1,15 @@
 package handlers
 
 import (
-    "encoding/json"
-    "net/http"
-    "notes-api/internal/auth"
-    "notes-api/internal/models"
-    "notes-api/internal/storage"
+	"encoding/json"
+	"go/token"
+	"net/http"
+	"notes-api/internal/auth"
+	"notes-api/internal/models"
+	"notes-api/internal/storage"
+	"os/user"
 
-    "github.com/google/uuid"
+	"github.com/google/uuid"
 )
 
 type AuthHandler struct {
@@ -82,4 +84,37 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)
         return
     }
+
+    if err := models.ValidateLoginRequest(req); err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    // Get user by email
+    user, err := h.storage.GetUserByEmail(r.Context(), req.Email)
+    if err != nil {
+        http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+        return
+    }
+
+    // Check password
+    if !h.passwordService.CheckPassword(req.Password, user.Password) {
+        http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+        return
+    }
+
+    // Generate JWT token
+    token, err := h.jwtService.GenerateToken(*user)
+    if err != nil {
+        http.Error(w, "Failed to generate token", http.StatusInternalServerError)
+        return
+    }
+
+    response := models.LoginResponse{
+        Token: token,
+        User:  *user,
+    }
+    
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(response)
 }
