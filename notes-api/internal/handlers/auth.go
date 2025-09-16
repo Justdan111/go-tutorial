@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
-	"go/token"
 	"net/http"
 	"notes-api/internal/auth"
 	"notes-api/internal/models"
 	"notes-api/internal/storage"
-	"os/user"
 
 	"github.com/google/uuid"
 )
