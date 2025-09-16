@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"notes-api/internal/auth"
+	"notes-api/internal/middleware"
 	"notes-api/internal/models"
 	"notes-api/internal/storage"
 
