@@ -18,6 +18,8 @@ func NewAuthMiddleware(jwtService *auth.JWTService) *Authmiddleware {
 	}
 }
 
+
+
 func (a *Authmiddleware) Middleware(next http.Handler) http.Handler {
 	return  http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// extract the token from the Authorization header
