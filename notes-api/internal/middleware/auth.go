@@ -1,15 +1,19 @@
 package middleware
 
-
 import (
 	"context"
 	"net/http"
 	"notes-api/internal/auth"
+	"notes-api/internal/handlers"
 	"strings"
 )
 
 type Authmiddleware struct {
 	jwtService *auth.JWTService
+}
+
+func (a *Authmiddleware) RequireAuth(notesHandler *handlers.NotesHandler) http.Handler {
+	panic("unimplemented")
 }
 
 func NewAuthMiddleware(jwtService *auth.JWTService) *Authmiddleware {
@@ -18,10 +22,8 @@ func NewAuthMiddleware(jwtService *auth.JWTService) *Authmiddleware {
 	}
 }
 
-
-
 func (a *Authmiddleware) Middleware(next http.Handler) http.Handler {
-	return  http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// extract the token from the Authorization header
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
@@ -54,8 +56,8 @@ func (a *Authmiddleware) Middleware(next http.Handler) http.Handler {
 
 // helper function to get user ID from context
 func GetUserIDFromContext(ctx context.Context) string {
-    if userID, ok := ctx.Value("userID").(string); ok {
-        return userID
-    }
-    return ""
+	if userID, ok := ctx.Value("userID").(string); ok {
+		return userID
+	}
+	return ""
 }
